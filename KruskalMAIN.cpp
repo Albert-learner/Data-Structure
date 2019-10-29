@@ -4,7 +4,7 @@
 int main()
 {
 	ifstream fin;
-	fin.open("KruData1.txt");
+	fin.open("KruData.txt");
 
 	if (fin.fail())
 	{

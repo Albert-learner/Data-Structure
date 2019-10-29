@@ -1,57 +1,48 @@
 #include "DFS.h"
-
-const int max_size = 6;
-bool visited[max_size] = { false, };
-Graph graph[max_size];
-
-void dfs(int v)
-{
-	cout << v;
-	cout << "->";
-	visited[v] = true;
-
-	for (Node *w = graph[v].getRoot(); w != NULL; w = w->link)
-	{
-		if (!visited[w->data])
-		{
-			dfs(w->data);
-		}
-		else
-		{
-			continue;
-		}
-	}
-}
+#include <fstream>
 
 int main()
 {
-	for (int i = 0; i < max_size; i++)
+	Graph g;
+	int count;
+	ifstream fin;
+	fin.open("dfs.dat");
+	if (fin.fail())
 	{
-		graph[i].insertGraph(i);
+		cout << "Fail to open file." << endl;
+		exit(1);
 	}
+	else
+	{
+		for (int i = 0; i < MAX; i++)
+		{
+			visited[i] = false;
+			visited1[i] = false;
+		}
 
-	
+		fin >> count;
+		for (int i = 0; i < count; i++)
+		{
+			int numCases;
+			fin >> numCases;
+			g.graph[i] = new Node();
+			for (int j = 0; j < numCases; j++)
+			{
+				int num;
+				fin >> num;
+				g.insert(i, j, num);
+			}
+		}
 
-	graph[0].insertGraph(1); graph[0].insertGraph(2);
-	graph[1].insertGraph(0); graph[1].insertGraph(2); graph[1].insertGraph(3);
-	graph[2].insertGraph(1); graph[2].insertGraph(5);
-	graph[3].insertGraph(1); graph[3].insertGraph(5); graph[3].insertGraph(4);
-	graph[4].insertGraph(3); graph[4].insertGraph(5);
-	graph[5].insertGraph(2); graph[5].insertGraph(3); graph[5].insertGraph(4);
-	graph[6].insertGraph(0); graph[6].insertGraph(1); graph[6].insertGraph(5);
-
-	dfs(0);
-	cout << endl;
+		//인접 리스트로 할 경우
+		cout << "***** Depth First Search(DFS) using Adjacent List" << endl;
+		g.dfs(0);
+		cout << endl;
+		//인접 행렬로 할 경우
+		cout << "***** Depth first Search(DFS) using adjacent matrix" << endl;
+		g.dfs_arr(0);
+		cout << endl;
+		g.printNode();
+	}
+	return 0;
 }
-
-/*
-graph[0].insertGraph(1); graph[0].insertGraph(2);
-graph[1].insertGraph(0); graph[1].insertGraph(3); graph[1].insertGraph(4);
-graph[2].insertGraph(0); graph[2].insertGraph(5); graph[2].insertGraph(6);
-graph[3].insertGraph(1); graph[3].insertGraph(7);
-graph[4].insertGraph(1); graph[4].insertGraph(7);
-graph[5].insertGraph(2); graph[5].insertGraph(7);
-graph[6].insertGraph(2); graph[6].insertGraph(7);
-graph[7].insertGraph(3); graph[7].insertGraph(4); graph[7].insertGraph(5);
-graph[7].insertGraph(6);
-*/

@@ -26,34 +26,36 @@ bool CQueue::IsFull()
 
 void CQueue::enQueue(char item)
 {
-	rear = (rear + 1) % CIRCULARQUEUE_SIZE;
-	if (front == rear)
+	if ((IsFull()) && (flag == false) || flag == true &&(rear == (front) % CIRCULARQUEUE_SIZE))
 	{
 		cout << "Queue is Full" << "\n";
 		return ;
 	}
 	else
 	{
+		rear = (rear + 1) % CIRCULARQUEUE_SIZE;
 		cqueue[rear] = item;
 	}
 }
 
 char CQueue::deQueue()
 {
-	if (front == rear)
+	if (IsEmpty() && (flag == false))
 	{
 		cout << "Queue is Empty" << "\n";
 		return NULL;
 	}
 	else
 	{
-		front = (front + 1) % CIRCULARQUEUE_SIZE;
 		int change = cqueue[front];
+		front = (front + 1) % CIRCULARQUEUE_SIZE;
+		flag = false;
 		return change;
 	}
 }
 
-void CQueue::printQueue(){
+void CQueue::printQueue()
+{
 	int i;
 	if (front == rear + 1)
 	{
@@ -73,10 +75,11 @@ void CQueue::printQueue(){
 				if (i == rear)
 					break;
 			}
+			
 			cout << cqueue[i] << " ";
 			i += 1;
 		}
-		cout << cqueue[rear];
+		cout << cqueue[i]<<" ";
 		cout << "\n";
 	}
 }

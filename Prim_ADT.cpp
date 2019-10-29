@@ -268,12 +268,12 @@ void GraphList::primeMethod1(int vert, int **lowCst)
 		if (checkCnt == vertexCnt)
 		{
 			//cout << vertIdx + 1 << "," << end + 1;
-			cout << char(vertIdx + 1 + 64)<< "," << char(end + 1 + 64);
+			cout << "(" << char(vertIdx + 1 + 64)<< "," << char(end + 1 + 64) << ")";
 		}
 		else
 		{
 			//cout << vertIdx + 1 << "," << end + 1 << " -> ";
-			cout << char(vertIdx + 1 + 64)<< "," << char(end + 1 + 64)<< " -> ";
+			cout << "(" << char(vertIdx + 1 + 64)<< "," << char(end + 1 + 64)<< ")" << " -> ";
 		}
 
 		for (int i = 0; i < vertexCnt; i++)
@@ -335,12 +335,12 @@ void GraphList::primeMethod2(int vert, int **lowCst)
 		if (checkCnt == vertexCnt)
 		{
 			//cout << lowWhere[end] + 1 << "," << end + 1;
-			cout << char(lowWhere[end] + 1 + 64)<< "," << char(end + 1 + 64);
+			cout << "(" << char(lowWhere[end] + 1 + 64)<< "," << char(end + 1 + 64) << ")";
 		}
 		else
 		{
-			//cout << lowWhere[end] + 1 << ", " << end + 1 << " -> ";
-			cout << char(lowWhere[end] + 1 + 64)<< "," << char(end + 1 + 64)<< " -> ";
+			//cout << lowWhere[end] + 1 << "," << end + 1 << " -> ";
+			cout << "(" << char(lowWhere[end] + 1 + 64)<< "," << char(end + 1 + 64) << ")" << " -> ";
 		}
 
 		for (int i = 0; i < vertexCnt; i++)

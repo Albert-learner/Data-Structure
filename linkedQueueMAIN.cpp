@@ -4,13 +4,9 @@ int main()
 {
 	linkedQueue lq;
 
-	lq.enQueue(30);
-	lq.enQueue(60);
-	lq.enQueue(40);
-	lq.enQueue(80);
-	lq.enQueue(100);
+	lq.enQueue('b');
+	lq.enQueue('c');
+	lq.enQueue('d');
 
-	lq.displayQueue();
-	lq.searchQueue(40);
 	return 0;
 }

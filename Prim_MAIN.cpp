@@ -4,7 +4,7 @@
 int main()
 {
 	ifstream fin;
-	fin.open("Prim1.txt");
+	fin.open("Prim.txt");
 
 	if (fin.fail())
 	{

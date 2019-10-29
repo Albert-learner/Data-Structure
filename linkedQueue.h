@@ -2,13 +2,13 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class QNode
 {
 private:
-	int data;
+	char data;
 	Node *next;
 
-	Node(int value)
+	QNode(char value)
 	{
 		data = value;
 		next = NULL;
@@ -19,8 +19,8 @@ private:
 class linkedQueue
 {
 private:
-	Node *front;
-	Node *rear;
+	QNode *front;
+	QNode *rear;
 
 public:
 	linkedQueue()

@@ -2,43 +2,86 @@
 #include <fstream>
 using namespace std;
 
+#define MAX_TERMS 100
+
 typedef struct
 {
-	int row;
-	int col;
-	int value;
-}SMarray;
+	float coef;
+	int expon;
+}Polynomial;
 
-void transpose(SMarray a[], SMarray b[])
+Polynomial terms[MAX_TERMS];
+Polynomial result[MAX_TERMS];
+int avail = 0;
+
+char COMPARE(int x, int y)
 {
-	int i, j, currentb;
-	b[0].row = a[0].col;
-	b[0].col = a[0].row;
-	b[0].value = a[0].value;
+	if (x > y)
+		return 1;
+	else if (x < y)
+		return -1;
+	else
+		return 0;
+}
 
-	if (a[0].value > 0)
+void attach(float coefficient, int exponent)
+{
+	if (avail >= MAX_TERMS)
 	{
-		currentb = 1;
-		for (i = 0; i < a[0].col; i++)
+		cout << "too many elements...";
+		exit(1);
+	}
+	
+
+	result[avail].coef = coefficient;
+	result[avail].expon = exponent;
+	avail++;
+}
+
+void padd(int starta, int finisha, int startb, int finishb)
+{
+	float coefficient;
+
+
+	while (starta <= finisha && startb <= finishb)
+	{
+		switch (COMPARE(terms[starta].expon, terms[startb].expon))
 		{
-			for (j = 1; j <= a[0].value; j++)
+		case -1:
+			attach(terms[startb].coef, terms[startb].expon);
+			startb++;
+			break;
+		case 0:
+			coefficient = terms[starta].coef + terms[startb].coef;
+			if (coefficient)
 			{
-				if (a[j].col == i)
-				{
-					b[currentb].row = a[j].col;
-					b[currentb].col = a[j].row;
-					b[currentb].value = a[j].value;
-					currentb++;
-				}
+				attach(coefficient, terms[starta].expon);
 			}
+			starta++; startb++;
+			break;
+		case 1:
+			attach(terms[starta].coef, terms[starta].expon);
+			starta++;
+			break;
+		default:
+			break;
 		}
+	}
+	for (; starta <= finisha; starta++)
+	{
+		attach(terms[starta].coef, terms[starta].expon);
+	}
+
+	for (; startb <= finishb; startb++)
+	{
+		attach(terms[startb].coef, terms[startb].expon);
 	}
 }
 
 int main()
 {
 	ifstream fin;
-	fin.open("lab02-1t.txt");
+	fin.open("lab02_1.txt");
 
 	if (fin.fail())
 	{
@@ -46,21 +89,26 @@ int main()
 		exit(1);
 	}
 
-	SMarray A[9];
-	SMarray TRANS_A[9];
-
-	for (int i = 0; i < 9; i++)
+	int counta, countb, i, *stard = 0, *finishd = 0;
+	fin >> counta;
+	for (i = 0; i < counta; i++)
 	{
-		fin >> A[i].row >> A[i].col >> A[i].value;
-		cout << A[i].row << ' ' << A[i].col << ' ' << A[i].value << "\n";
+		fin >> terms[i].coef;
+		fin >> terms[i].expon;
 	}
 
-	transpose(A, TRANS_A);
-	cout << "\n";
-
-	for (int i = 0; i < 9; i++)
+	fin >> countb;
+	for (i; i < counta + countb; i++)
 	{
-		cout << TRANS_A[i].row << ' ' << TRANS_A[i].col << ' ' << TRANS_A[i].value << '\n';
+		fin >> terms[i].coef;
+		fin >> terms[i].expon;
+	}
+
+	padd(0, counta - 1, counta, counta + countb - 1);
+
+	for (int i = 0; i < avail; i++)
+	{
+		cout << result[i].coef << ' ' << result[i].expon << "\n";
 	}
 	return 0;
 }

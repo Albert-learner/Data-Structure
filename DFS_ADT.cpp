@@ -1,40 +1,81 @@
 #include "DFS.h"
 
-
-void Graph::insertGraph(int data)
+void Graph::insert(int idx, int numC, int num)
 {
-	Node *temp = new Node();
-	temp->data = data;
-	temp->link = NULL;
-	Node *p, *q;
-
-	if (root == NULL)
+	Node *tmp = new Node(num);
+	if (numC == 0)
 	{
-
-		temp->data = data;
-		root = temp;
-	}
-	else if (temp->data < root->data)
-	{
-		temp->link = root;
-		root = temp;
+		graph[idx] = tmp;
+		return;
 	}
 	else
 	{
-		p = root;
-		while (p != NULL && p->data < temp->data)
+		Node *p = graph[idx];
+		while (p->link != NULL)
 		{
-			q = p;
 			p = p->link;
 		}
-		if (p != NULL)
+		p->link = tmp;
+	}
+}
+
+void Graph::dfs(int v)
+{
+	Node *w;
+	visited[v] = true;
+	cnt++;
+	//cnt 개수 == MAX 개수
+	if (cnt != MAX)
+	{
+		cout << "V" << v << "->";
+	}
+	else
+	{
+		cout << "V" << v << endl;
+		cnt = 0;
+	}
+	for (w = graph[v]; w != NULL; w = w->link)
+	{
+		if (!visited[w->vertex])
 		{
-			temp->link = p; q->link = temp;
-		}
-		else
-		{
-			q->link = temp;
+			dfs(w->vertex);
 		}
 	}
 }
 
+void Graph::dfs_arr(int v)
+{
+	visited1[v] = true;
+	cnt++;
+
+	if (cnt != MAX)
+	{
+		cout << "V" << v << "->";
+	}
+	else
+	{
+		cout << "V" << v << endl;
+	}
+	for (int j = 0; j < MAX; j++)
+	{
+		if (ADJM[v][j] == 1 && visited1[j] == 0)
+		{
+			dfs_arr(j);
+		}
+	}
+}
+
+void Graph::printNode()
+{
+	for (int i = 0; i < MAX; i++)
+	{
+		Node *p = graph[i];
+		cout << "V" << i << ": ";
+		while (p != NULL)
+		{
+			cout << p->vertex << " ";
+			p = p->link;
+		}
+		cout << endl;
+	}
+}

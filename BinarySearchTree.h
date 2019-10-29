@@ -42,7 +42,14 @@ public:
 	Node *searchBST(Node *p, int key);
 	Node *insertBST(Node *p, int key);
 	Node *find_min(Node *p);
+	Node *find_max(Node *p);
 	Node *deleteBST(Node *p, int level);
 	void drawBST(Node *p, int level);
+	void traverse();
+	void inOrdetBST(Node *p);
+	void postOrderBST(Node *p);
+	void preOrderBST(Node *p);
+	void leaf();
+	int leafCount(Node *p, int count);
 };
 

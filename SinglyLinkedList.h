@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <iostream>
 using namespace std;
 
@@ -7,20 +6,32 @@ typedef struct _node Node;
 
 struct _node
 {
-	char Name;
-	int ID;
-	string major;
-	char Grade;
+	int data;
 	Node *next;
 };
 
-typedef struct _list
+class List
 {
+private:
 	Node *head;
-}List;
 
-void createList(List *lp);
-void addFirst(List *lp, char name, int ID, string major, char grade);
-void displayList(List *lp);
-void searchNode(List *lp, char grade);
-void searchNode_pos(List lp);
+public:
+	List()
+	{
+		head = NULL;
+	}
+	bool isEmpty();
+	void insertNode(int cost);
+	void appendNode(int cost);
+	void deleteNode(int cost);
+	void searchNode(int cost);
+	void searchNode_pos(int cost);
+	Node *invertList(Node *head);
+	void invert()
+	{
+		head = invertList(head);
+	}
+	void traverseList();
+	void printLast();
+	~List();
+};

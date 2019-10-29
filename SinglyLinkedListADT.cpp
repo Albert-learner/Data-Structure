@@ -1,137 +1,223 @@
 #include "SinglyLinkedList.h"
 
-/*
-Function name : createList - 연결 리스트 생성 및 초기화
-Parameters : lp - 리스트 관리 구조체 주소
-Returns : 없음
-*/
-void createList(List *lp)
+bool List::isEmpty()
 {
-	lp->head = NULL;
-}
-
-/*
-Function name : addFist - head node에 node 추가(역순 저장)
-Parameters : lp - 리스트 관리 구조체 주소
-			 char형 name, int형 data, string형 major, char형 grade - 추가할 데이터
-Returns : 없음
-*/
-void addFirst(List *lp, char name, int ID, string major, char grade)
-{
-	Node *newp;
-	newp = new Node;
-	newp->Name = name;
-	newp->ID = ID;
-	newp->major = major;
-	newp->Grade = grade;
-	newp->next = NULL;
-
-	if (lp->head == NULL)
+	if (head == NULL)
 	{
-		lp->head = newp;
-	}
-	else if (newp->Name < lp->head->Name)
-	{
-		newp->next = lp->head;
-		lp->head = newp;
+		return true;
 	}
 	else
 	{
-		Node *curp, *befp;
-		curp = lp->head;
-		befp = lp->head;
+		return false;
+	}
+}
 
-		while ((curp != NULL) && (curp->Name < newp->Name))
+void List::insertNode(int data)
+{
+	Node *temp = new Node();
+	temp->data = data;
+	temp->next = NULL;
+	Node *p, *q;
+
+	if (head == NULL)
+	{
+		head = temp;
+	}
+	else if (temp->data < head->data)
+	{
+		temp->next = head;
+		head = temp;
+	}
+	else
+	{
+		p = head;
+		while ((p != NULL) && (p->data < temp->data))
 		{
-			befp = curp;
-			curp = curp->next;
+			q = p;
+			p = p->next;
 		}
-
-		if (curp != NULL)
+		if (p != NULL)
 		{
-			newp->next = curp;
-			befp->next = newp;
+			temp->next = p;
+			q->next = temp;
 		}
 		else
 		{
-			befp->next = newp;
+			q->next = temp;
 		}
 	}
 }
 
-/*
-Function name : displayList - 리스트 내의 모든 데이터 출력
-Parameters : lp - 리스트 관리 구조체의 주소
-Returns : 없음
-*/
-void displayList(List *lp)
+void List::appendNode(int data)
 {
-	Node *temp;
+	Node *temp = new Node();
+	temp->data = data;
+	temp->next = NULL;
 
-	if (lp == NULL)
+	if (head == NULL)
 	{
-		cout << "빈 리스트입니다. " << "\n";
-		return ;
+		head = temp;
 	}
 	else
 	{
-		temp = lp->head;
-
-		while (temp != NULL)
+		Node *ptr = head;
+		while (ptr->next != NULL)
 		{
-			cout << temp->Name << ' ' << temp->ID << ' ' << temp->major << ' ' << temp->Grade << '\n';
-			temp = temp->next;
+			ptr = ptr->next;
 		}
-		return ;
+		ptr->next = temp;
 	}
 }
 
-/*
-Function name : searchNode - grade와 일치하는 node 검색
-Parameters : lp - 리스트 관리 구조체의 주소
-			 char형 grade - 찾아야 할 데이터
-Returns : 없음
-*/
-void searchNode(List *lp, char grade)
+void List::deleteNode(int num)
 {
-	if (lp == NULL)
+	Node *p, *q;
+
+	if (head == NULL)
 	{
-		return ;
+		cout << "not found" << "\n";
 	}
 	else
 	{
-		Node *Snode;
-		Snode = lp->head;
-
-		while (Snode != NULL)
+		if (head->data == num)
 		{
-			if (Snode->Grade == grade)
+			p = head;
+			head = head->next;
+			delete(p);
+		}
+		else
+		{
+			p = head;
+			q = head;
+			while (p != NULL && p->data != num)
 			{
-				cout << Snode->Name << ' ' << Snode->ID << ' ' << Snode->major << ' ' << Snode->Grade << "\n";
+				q = p;
+				p = p->next;
 			}
-			Snode = Snode->next;
+			if (p != NULL)
+			{
+				q->next = p->next;
+				delete(p);
+			}
+			else
+			{
+				cout << num << "is not in the list" << "\n";
+			}
 		}
 	}
 }
 
-/*
-Function name : searchNode_pos - major와 일치하는 node 검색
-Parameters : lp - 리스트 관리 구조체의 주소
-			 string형 major - 찾아야 할 데이터
-Returns : 없음
-*/
-void searchNode_pos(List lp)
+void List::searchNode(int num)
 {
-	Node *Snode;
-	Snode = lp.head;
+	Node *p;
 
-	while (Snode != NULL)
+	if (head != NULL)
 	{
-		if (Snode->major == "CS")
+		p = head;
+		while (p != NULL && p->data != num)
 		{
-			cout << Snode->Name << ' ' << Snode->ID << ' ' << Snode->major << ' ' << Snode->Grade << "\n";
+			p = p->next;
 		}
-		Snode = Snode->next;
+		if (p)
+		{
+			cout << p->data << " is in the list." << "\n";
+		}
+		else
+		{
+			cout << num << " is not in the list." << "\n";
+		}
 	}
-	return ;
+	else
+	{
+		cout << "List is empty" << "\n";
+	}
+}
+
+void List::searchNode_pos(int cost)
+{
+	Node *p;
+	p = head;
+	for (int i = 0; i < cost; i++)
+	{
+		p = p->next;
+		if (p == NULL)
+		{
+			cout << "Not found" << "\n";
+			break;
+		}
+		else
+		{
+			continue;
+		}
+	}
+}
+
+Node *List::invertList(Node *head)
+{
+	Node *middle, *trail;
+	middle = NULL;
+
+	while (head)
+	{
+		trail = middle;
+		middle = head;
+		head = head->next;
+		middle->next = trail;
+	}
+	return middle;
+}
+
+void List::traverseList()
+{
+	Node *p;
+
+	if (!isEmpty())
+	{
+		p = head;
+		while (p)
+		{
+			cout << p->data << " ";
+			p = p->next;
+		}
+		cout << "\n";
+	}
+	else
+	{
+		cout << "List is Empty!" << "\n";
+	}
+}
+
+void List::printLast()
+{
+	Node *p;
+
+	if (!isEmpty())
+	{
+		p = head;
+		while (p)
+		{
+			p = p->next;
+			if (p->next == NULL)
+			{
+				cout << p->data << "\n";
+				break;
+			}
+		}
+	}
+	else
+	{
+		cout << "List is Empty" << "\n";
+	}
+}
+
+List::~List()
+{
+	Node *p;
+
+	while (head != NULL)
+	{
+		p = head;
+		head = head->next;
+		delete(p);
+	}
 }

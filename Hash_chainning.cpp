@@ -45,15 +45,16 @@ Hash myHash[max_size];
 
 int main()
 {
-	int idx, input, num;
+	int idx, num;
+	char input;
 	Hash hash;
 
 	while (1)
 	{
-		cout << "1. insert 2. delete 3. traverse 4. find 5. quit" << endl;
+		cout << "i. insert d. delete f. find q. quit" << endl;
 		cin >> input;
 
-		if (input == 1)
+		if (input == 'i')
 		{
 			cout << "입력할 데이터는 ? " << endl;
 			cin >> num;
@@ -66,30 +67,40 @@ int main()
 			{
 				cout << "이미 존재하는 데이터입니다." << endl;
 			}
+
+			for (int i = 0; i < max_size; i++)
+			{
+				cout << "Htable[" << i << "]: ";
+				myHash[i].traverse();
+			}
 		}
-		else if (input == 2)
+		else if (input == 'd')
 		{
 			cout << "삭제할 데이터는 ? " << endl;
 			cin >> num;
 			idx = hash.hashKey(num);
 			myHash[idx].deleteKey(num);
-		}
-		else if (input == 3)
-		{
+
 			for (int i = 0; i < max_size; i++)
 			{
-				cout << i << "번" << endl;
+				cout << "Htable[" << i << "]: ";
 				myHash[i].traverse();
 			}
 		}
-		else if (input == 4)
+		else if (input == 'f')
 		{
 			cout << "찾을 데이터는 ? " << endl;
 			cin >> num;
 			idx = hash.hashKey(num);
 			myHash[idx].finding(num);
+
+			for (int i = 0; i < max_size; i++)
+			{
+				cout << "Htable[" << i << "]: ";
+				myHash[i].traverse();
+			}
 		}
-		else if (input == 5)
+		else if (input == 'q')
 		{
 			break;
 		}
@@ -197,7 +208,7 @@ void Hash::traverse()
 
 	while (p != NULL)
 	{
-		cout << p->key << " ";
+		cout << p->key << " -> ";
 		p = p->link;
 	}
 	cout << endl;

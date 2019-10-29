@@ -1,5 +1,4 @@
+choi 60 168
 kim 52 165
 lee 55 170
-choi 60 168
 song 51 162
-hong 50 150

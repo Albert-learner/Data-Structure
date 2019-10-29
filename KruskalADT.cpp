@@ -32,15 +32,15 @@ void Kruskal::addData(char start, int cost, char end)
 	Node *newp1 = new Node(start, cost, end);
 	Node *tmp1;
 
-	//알파벳일 경우 빼는 값을 0나 a로 바꾸기 전부
-	if (graph[start - '0'] == NULL)
+	//알파벳일 경우 빼는 값을 A나 a로 바꾸기 전부
+	if (graph[start - 'A'] == NULL)
 	{
-		newp1->next = graph[start - '0'];
-		graph[start - '0'] = newp1;
+		newp1->next = graph[start - 'A'];
+		graph[start - 'A'] = newp1;
 	}
 	else
 	{
-		tmp1 = graph[start - '0'];
+		tmp1 = graph[start - 'A'];
 		while (tmp1->next != NULL)
 		{
 			tmp1 = tmp1->next;
@@ -49,14 +49,14 @@ void Kruskal::addData(char start, int cost, char end)
 	}
 	Node *newp2 = new Node(end, cost, start);
 	Node *tmp2;
-	if (graph[end - '0'] == NULL)
+	if (graph[end - 'A'] == NULL)
 	{
-		newp2->next = graph[end - '0'];
-		graph[end - '0'] = newp2;
+		newp2->next = graph[end - 'A'];
+		graph[end - 'A'] = newp2;
 	}
 	else
 	{
-		tmp2 = graph[end - '0'];
+		tmp2 = graph[end - 'A'];
 	}
 }
 
@@ -169,11 +169,11 @@ void Kruskal::SolveKruskal()
 
 	for (cur = head; cur != NULL; cur = cur->next)
 	{
-		if (!Find(cur->start - '0', cur->end - '0'))
+		if (!Find(cur->start - 'A', cur->end - 'A'))
 		{
 			sum += cur->cost;
 			cout << "Edge" << ++cnt << ": " << cur->start << ' ' << cur->cost << ' ' << cur->end << endl;
-			Union(cur->start - '0', cur->end - '0');
+			Union(cur->start - 'A', cur->end - 'A');
 		}
 	}
 	cout << endl;

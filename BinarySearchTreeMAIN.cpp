@@ -2,29 +2,29 @@
 
 int main()
 {
-	BST b;
-	b.setRoot(b.insertBST(b.getRoot(), 30));
-	int temp = 0;
+	BST bst;
+	bst.setRoot(bst.insertBST(bst.getRoot(), 30));
+	int choice = 0;
 
 	while (1)
 	{
-		cout << "1. Insert 2. Delete 3. Search 4. Print 5. Quit" << endl;
+		cout << "(1. Insert 2. Delete 3. Search 4. Print 5. Traverse 6. Leaf 7. quit)" << endl;
 		cout << "ют╥б > ";
-		cin >> temp;
+		cin >> choice;
 
-		switch (temp)
+		switch (choice)
 		{
 		case 1:
 			cout << "Enter number to insert : ";
-			cin >> temp;
-			b.insertBST(b.getRoot(), temp);
+			cin >> choice;
+			bst.insertBST(bst.getRoot(), choice);
 			break;
 		case 2:
-			if (b.getRoot() != NULL)
+			if (bst.getRoot() != NULL)
 			{
 				cout << "Enter number to delete : ";
-				cin >> temp;
-				b.deleteBST(b.getRoot(), temp);
+				cin >> choice;
+				bst.deleteBST(bst.getRoot(), choice);
 			}
 			else
 			{
@@ -32,12 +32,12 @@ int main()
 			}
 			break;
 		case 3:
-			if (b.getRoot() != NULL)
+			if (bst.getRoot() != NULL)
 			{
 				cout << "Enter number to search : ";
-				cin >> temp;
+				cin >> choice;
 				Node *tmp;
-				tmp = b.searchBST(b.getRoot(), temp);
+				tmp = bst.searchBST(bst.getRoot(), choice);
 				if (tmp == NULL)
 				{
 					cout << "Not Found" << endl;
@@ -53,13 +53,19 @@ int main()
 			}
 			break;
 		case 4:
-			b.drawBST(b.getRoot(), 1);
+			bst.drawBST(bst.getRoot(), 1);
 			break;
 		case 5:
-			exit(1);
-		default:
-			cout << "Not regular cost, Please re-input the cost" << "\n";
+			bst.traverse();
 			break;
+		case 6:
+			bst.leaf();
+			break;
+		case 7:
+			cout << "Program End" << endl;
+			break;
+		default:
+			cout << "Input Error, you should re-input the choice" << endl;
 		}
 	}
 	return 0;

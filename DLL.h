@@ -17,7 +17,6 @@ class DList
 private:
 	Node *head;
 	
-
 public:
 	DList()
 	{
@@ -29,6 +28,7 @@ public:
 	void backwardList();
 	void forwardList();
 	void searchList(string key);
+	void sortList();
 	void quit();
 	bool isEmpty();
 	int listLength();

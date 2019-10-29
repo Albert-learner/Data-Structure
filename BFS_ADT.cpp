@@ -1,5 +1,84 @@
 #include "BFS.h"
 
+void Graph::initGraph()
+{
+	for (int i = 0; i < MAX; i++)
+	{
+		for (int j = 0; j < MAX; j++)
+		{
+			matrix[i][j] = 0;
+		}
+	}
+
+	for (int i = 0; i < MAX; i++)
+	{
+		visited[i] = false;
+		visited1[i] = false;
+		graph[i] = new Node();
+	}
+}
+
+void Graph::insertGraph(int row, int col, int num, int cnt)
+{
+	matrix[row][col] = num;
+	Node *tmp = new Node(col);
+
+	if (cnt == 0)
+	{
+		graph[row] = tmp;
+		return;
+	}
+	else
+	{
+		Node *p = graph[row];
+		while (p->next != 0)
+		{
+			p = p->next;
+		}
+		p->next = tmp;
+	}
+}
+
+void Graph::insertList(int idx, int numC, int data)
+{
+	Node *tmp = new Node(data);
+	if (numC == 0)
+	{
+		graph[idx] = tmp;
+		return ;
+	}
+	else
+	{
+		Node *p = graph[idx];
+		while (p->next != NULL)
+		{
+			p = p->next;
+		}
+		p->next = tmp;
+	}
+}
+
+void Graph::initializeQ()
+{
+	rear = new Node();
+	front = rear;
+}
+
+void Graph::addQ(int v)
+{
+	Node *tmp = new Node(v);
+	if (front == rear)
+	{
+		front->next = tmp;
+		rear = rear->next;
+	}
+	else
+	{
+		rear->next = tmp;
+		rear = rear->next;
+	}
+}
+
 bool Graph::isEmpty()
 {
 	if (front == rear)
@@ -12,120 +91,69 @@ bool Graph::isEmpty()
 	}
 }
 
-bool Graph::isFull()
+int Graph::deleteQ()
 {
-	if (rear == max_size - 1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	Node *p = front;
+	front = front->next;
+	int vert = front->vertex;
+	delete p;
+	return vert;
 }
 
-void Graph::enqueue(int data)
+void Graph::bfs(int v)
 {
-	if (isFull())
-	{
-		return ;
-	}
-	else
-	{
-		queue[++rear] = data;
-	}
-}
-
-int Graph::dequeue()
-{
-	if (isEmpty())
-	{
-		return -1;
-	}
-	else
-	{
-		return queue[++front];
-	}
-}
-
-void Graph::BFS(int v)
-{
-	cout << "***** Breath First Search(BFS)" << endl;
+	Node *p;
 	visited[v] = true;
-	cout << "v" << v<<"->";
-	enqueue(v);
+	cout << "v" << v << " ";
+	addQ(v);
 
 	while (!isEmpty())
 	{
-		int now = dequeue();
-
-		for (int k = 0; k < max_size; k++)
+		v = deleteQ();
+		for (p = graph[v]; p; p = p->next)
 		{
-			if (adj[now][k] == 1 && visited[k] == false)
+			if (!visited[p->vertex] && matrix[v][p->vertex] != 0)
 			{
-				enqueue(k);
-				visited[k] = true;
-
-				if (k != max_size - 1)
-				{
-					cout << "v" << k << "->";
-				}
-				else
-				{
-					cout << "v" << k << endl;
-				}
+				addQ(p->vertex);
+				visited[p->vertex] = true;
+				cout << "v" << p->vertex << " ";
 			}
 		}
 	}
-	cout << endl;
 }
 
-void Graph::insert(int row, int col, int data, int cnt)
+void Graph::bfs_list(int v)
 {
-	adj[row][col] = data;
-	Node *tmp = new Node(col);
-
-	if (cnt == 0)
-	{
-		graph[row] = tmp;
-		return ;
-	}
-	else
-	{
-		Node *p = graph[row];
-		while (p->link != 0)
-		{
-			p = p->link;
-		}
-		p->link = tmp;
-	}
-}
-
-void Graph::BFS_list(int v)
-{
-	cout << "***** Breath First Search(BFS) using List" << endl;
 	Node *p;
-	visited1[v] = true;
-	cout << "v" << v << "->";
-	
-	for (p = graph[v]; p != NULL; p = p->link)
+	visited[v] = true;
+	cout << "v" << v << " ";
+	addQ(v);
+
+	while (!isEmpty())
 	{
-		if (!visited1[p->vertex])
+		v = deleteQ();
+		for (p = graph[v]; p; p = p->next)
 		{
-			visited1[p->vertex] = true;
-			cout << "v" << p->vertex << "->";
+			if (!visited[p->vertex])
+			{
+				addQ(p->vertex);
+				visited[p->vertex] = true;
+				cout << "v" << p->vertex << " ";
+			}
 		}
 	}
 }
 
 void Graph::print_matrix()
 {
-	cout << "***** Breath First Search(BFS)" << endl;
-	for (int i = 0; i < max_size; i++)
+	cout << "*****  Adjacent Matrix";
+	cout << "    " << endl;
+	for (int i = 0; i < MAX; i++)
 	{
-		for (int j = 0; j < max_size; j++)
+		cout << "v" << i << " ";
+		for (int j = 0; j < MAX; j++)
 		{
-			cout <<adj[i][j] << " ";
+			cout << matrix[i][j] << ' ';
 		}
 		cout << endl;
 	}

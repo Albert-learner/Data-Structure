@@ -4,16 +4,10 @@ int main()
 {
 	linkedStack ls;
 
-	ls.push(30);
-	ls.push(20);
-	ls.push(50);
-	ls.push(40);
-	ls.push(100);
-
+	ls.push('a');
+	ls.push('e');
 	ls.displayStack();
-
-	ls.invert();
-	ls.displayStack();
-	ls.searchStack(20);
+	cout << "---------------------------------" << "\n";
+	
 	return 0;
 }

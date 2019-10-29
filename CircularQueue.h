@@ -9,6 +9,7 @@ class CQueue
 private:
 	int front;
 	int rear;
+	bool flag;
 	char cqueue[CIRCULARQUEUE_SIZE];
 
 public:

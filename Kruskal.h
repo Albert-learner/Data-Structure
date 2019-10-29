@@ -3,7 +3,7 @@
 using namespace std;
 
 //MAX_SIZE 바꾸기, 정점 개수에 따라
-const int MAX_SIZE = 7;
+const int MAX_SIZE = 6;
 
 struct Node
 {

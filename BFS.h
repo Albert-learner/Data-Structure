@@ -1,54 +1,39 @@
 #pragma once
 #include <iostream>
 using namespace std;
-#define max_size 8
-
-static int cnt = 0;
-static bool visited1[max_size] = { false, };
-static bool visited[max_size] = { false, };
-static int adj[max_size][max_size] = 
-{
-	{0, 1, 1, 0, 0, 0, 0, 0},
-	{1, 0, 0, 1, 1, 0, 0, 0},
-	{1, 0, 0, 0, 0, 1, 1, 0},
-	{0, 1, 0, 0, 0, 0, 0, 1},
-	{0, 1, 0, 0, 0, 0, 0, 1},
-	{0, 0, 1, 0, 0, 0, 0, 1},
-	{0, 0, 1, 0, 0, 0, 0, 1},
-	{0, 0, 0, 1, 1, 1, 1, 0}
-};
+#define MAX 6
 
 class Node
 {
 public:
 	int vertex;
-	Node *link;
+	Node *next;
 
-	Node(): link(NULL){}
-	Node(int data) : vertex(data), link(NULL) {}
+	Node() : next(0) {}
+	Node(int num) : vertex(num), next(0) {}
 	friend class Graph;
 };
 
 class Graph
 {
 private:
-	int front, rear;
-	int queue[max_size];
+	bool visited[MAX];
+	bool visited1[MAX];
+	int matrix[MAX][MAX];
+	Node *front;
+	Node *rear;
 
 public:
-	Graph()
-	{
-		front = -1;
-		rear = -1;
-	}
-
-	Node *graph[max_size];
-	void insert(int index, int numC, int data);
+	Node *graph[MAX];
+	Graph() {}
+	void initGraph();
+	void insertGraph(int row, int col, int num, int cnt);
+	void insertList(int index, int numC, int data);
+	void initializeQ();
+	void addQ(int v);
 	bool isEmpty();
-	bool isFull();
-	void enqueue(int data);
-	int dequeue();
-	void BFS(int v);
-	void BFS_list(int v);
+	int deleteQ();
+	void bfs(int v);
+	void bfs_list(int v);
 	void print_matrix();
 };

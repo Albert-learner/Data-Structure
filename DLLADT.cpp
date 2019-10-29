@@ -206,11 +206,58 @@ void DList::locateN(int N)
 			p = p->next;
 			pos++;
 		}
-		cout << pos << "*";
+		cout << "------ Find "<< N<<"rd -----"<<"\n";
+		cout << pos << "-> ";
 		cout << p->name << " " << p->weight << " " << p->height << "\n";
 	}
 	else
 	{
 		cout << "No such a line" << "\n";
 	}
+}
+
+void DList::sortList()
+{
+	string temp_Name;
+	int temp_wei, temp_hei;
+
+	if (head == NULL)
+	{
+		return ;
+	}
+	else
+	{
+		Node *bp = head;
+		Node *cp = head;
+
+		while (bp != NULL)
+		{
+			cp = bp->next;
+			while (cp != NULL)
+			{
+				if (bp->name > cp->name)
+				{
+					temp_Name = cp->name;
+					temp_wei = cp->weight;
+					temp_hei = cp->height;
+
+					cp->name = bp->name;
+					cp->weight = bp->weight;
+					cp->height = bp->height;
+
+					bp->name = temp_Name;
+					bp->weight = temp_wei;
+					bp->height = temp_hei;
+
+					cp = cp->next;
+				}
+				else
+				{
+					cp = cp->next;
+				}
+			}
+			bp = bp->next;
+		}
+	}
+	return ;
 }

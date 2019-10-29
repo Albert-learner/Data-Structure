@@ -1,69 +1,65 @@
 #include <iostream>
 #include <fstream>
-#define MAX_COL 9
-
 using namespace std;
 
-typedef struct {
-	int row;
-	int col;
-	int value;
-}shape;
+#define MAX 5
 
-
-
-void fast_transpose(shape a[], shape b[])
+void magic()
 {
-	int row_terms[MAX_COL], starting_pos[MAX_COL];
-	int i, j;
-	int num_col = a[0].col;
-	int num_terms = a[0].value;
+	int square[MAX][MAX], k, l;
 
-	b[0].row = num_col;
-	b[0].col = a[0].row;
-	b[0].value = num_terms;
-
-	if (num_terms > 0)  // 0아 아닐때
+	for (k = 0; k < MAX; k++)
 	{
-		for (i = 0; i < num_col; i++)
-			row_terms[i] = 0;
-		for (i = 1; i <= num_terms; i++)
-			row_terms[a[i].col]++;
-
-		starting_pos[0] = 1;
-		for (i = 1; i < num_col; i++)
-			starting_pos[i] = starting_pos[i - 1] + row_terms[i - 1];
-
-		for (i = 1; i <= num_terms; i++)
+		for (l = 0; l < MAX; l++)
 		{
-			j = starting_pos[a[i].col]++;
-			b[j].row = a[i].col;
-			b[j].col = a[i].row;
-			b[j].value = a[i].value;
+			square[k][l] = 0;
 		}
+	}
+
+	int key = 2, i = 0, j = MAX / 2, row, col;
+	square[i][j] = 1;
+
+	while (key <= MAX * MAX)
+	{
+		if (i - 1 < 0)
+			row = MAX - 1;
+		else
+			row = i - 1;
+
+		if (j - 1 < 0)
+			col = MAX - 1;
+		else
+			col = j - 1;
+
+		if (square[row][col])
+			i = (i + 1) % MAX;
+		else
+		{
+			i = row;
+			j = col;
+		}
+		square[i][j] = key++;
+	}
+
+	for (k = 0; k < MAX; k++)
+	{
+		for (l = 0; l < MAX; l++)
+		{
+			cout << square[k][l] << ' ';
+		}
+		cout << "\n";
 	}
 }
 
-
-int main(void)
+int main()
 {
-	ifstream fin;
-	fin.open("lab2-1.txt");
-	shape sha[9];
-	shape trans[9];
+	int cost;
+	cout << "크기 입력 : ";
+	cin >> cost;
 
-	for (int i = 0;i<9;i++)
+	if (cost == MAX)
 	{
-		fin >> sha[i].row >> sha[i].col >> sha[i].value;
-		cout << sha[i].row << ' ' << sha[i].col << ' ' << sha[i].value << '\n';
+		magic();
 	}
-	
-	fast_transpose(sha, trans);
-	
-	for (int j = 0; j < 9; j++)
-	{
-		cout << sha[j].row << ' ' << sha[j].col << ' ' << sha[j].value << '\n';
-	}
-
 	return 0;
 }
