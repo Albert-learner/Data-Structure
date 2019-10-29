@@ -1,22 +1,21 @@
-#ifndef _DFS_H__
-#define _DFS_H__
+#pragma once
 #include <iostream>
 using namespace std;
 
 struct Node
 {
-		int data;
-		Node *link;
+	int data;
+	Node *link;
 };
 
 class Graph
 {
-private :
+private:
 	Node *root;
 public:
-	Graph():root(NULL){}
+	Graph() :root(NULL) {}
 	void insertGraph(int data);
-	Node *getRoot() 
+	Node *getRoot()
 	{
 		return root;
 	}
@@ -24,4 +23,3 @@ public:
 
 void dfs(int v);
 
-#endif // !1

@@ -1,7 +1,6 @@
-triangle 20 40
-rectangle 40 80
-circle 50
-rectangle 30 60
-triangle 10 20
-triangle 50 30
-circle 20
+(A * B) + (C * D) 
+(A * ( B + ( C * D + E))) 
+( ( A + B) 
+(A + B } ) 
+( A + B ) - { C + D } - [F + G] 
+{ A + ( B - [C + D]) * E) } 

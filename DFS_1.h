@@ -1,38 +1,39 @@
 #pragma once
-#define MAX_VERTEX 100
+#include <iostream>
+using namespace std;
+#define MAX 8
 
-extern bool check[MAX_VERTEX];
+static bool visited[MAX];
+static bool visited1[MAX];
+static int cnt = 0;
 
 class Node
 {
 public:
 	int vertex;
-	Node *next;
+	Node *link;
+	Node(): link(NULL){}
+	Node(int data) : vertex(data), link(NULL){}
+	friend class Graph;
 };
 
-class GraphList
+class Graph
 {
 public:
-	Node * graph[MAX_VERTEX];
-	int vertexCnt;
-	int edgeCnt;
-
-	GraphList(int vert, int edge)
+	int ADJM[MAX][MAX] = 
 	{
-		vertexCnt = vert;
-		edgeCnt = edge;
-
-		for (int i = 0; i<vertexCnt; ++i)
-			graph[i] = 0;
-	}
-
-	void initGraph_List(int numV);
-	void sortGraph_List(int numV);
-	void outputGraph_List();
-	bool addNode(int vNum1, int vNum2);
-	void destroyGraph_List();
-	void DFS(int vert);
+		{0, 1, 1, 0, 0, 0, 0, 0},
+		{1, 0, 0, 1, 1, 0, 0, 0},
+		{1, 0, 0, 0, 0, 1, 1, 0},
+		{0, 1, 0, 0, 0, 0, 0, 1},
+		{0, 1, 0, 0, 0, 0, 0, 1},
+		{0, 0, 1, 0, 0, 0, 0, 1},
+		{0, 0, 1, 0, 0, 0, 0, 1},
+		{0, 0, 0, 1, 1, 1, 1, 0}
+	};
+	Node *graph[MAX];
+	void insert(int index, int numC, int data);
+	void dfs(int v);
+	void dfs_arr(int v);
+	void printNode();
 };
-
-
-

@@ -20,7 +20,7 @@ int main()
 	List li;
 	createList(&li);
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		fin >> name >> ID >> major >> grade;
 		addFirst(&li, name, ID, major, grade);
@@ -34,23 +34,45 @@ int main()
 	createList(&li_);
 	ifstream in;
 	in.open("data2.txt");
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		in >> name >> ID >> major >> grade;
 		addFirst(&li_, name, ID, major, grade);
 	}
 	cout << "-------------------------------\n";
 	Node *nS;
-	nS = li.head; 
+	 
+	Node* temp = li_.head;
 	
-	while (nS->next != NULL) 
-	{
-		nS = nS->next;
-	}
-	nS->next = li_.head;
 	searchNode_3(li);
 
 	fin.close();
 	in.close();
 	return 0;
 }
+
+/*for (int i = 0; i < 3; i++)
+	{
+		nS = li.head;
+		int flag = 0;
+		while (nS->next != NULL)
+		{
+			if (nS->next->Name > temp->Name)
+			{
+				Node* g = nS->next;
+				nS->next = temp;
+				temp = temp->next;
+				nS = nS->next;
+				nS->next = g;
+				flag = 1;
+				break;
+			}
+			nS = nS->next;
+		}
+		if (flag == 0)
+		{
+			nS->next = temp;
+			temp = temp->next;
+			nS->next->next = NULL;
+		}
+	}*/

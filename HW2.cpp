@@ -131,3 +131,8 @@ void searchNode_3(List lp)
 	}
 	return ;
 }
+
+List *concat(List *lp1, List *lp2)
+{
+
+}

@@ -1,5 +1,4 @@
-#ifndef _BINARYSEARCHTREE_H__
-#define _BINARYSEARCHTREE_H__
+#pragma once
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -10,40 +9,40 @@ public:
 	int data;
 	Node *left;
 	Node *right;
+
 	Node(int value)
 	{
 		data = value;
 		left = NULL;
 		right = NULL;
 	}
-	friend class BinaryTree;
+	friend class BST;
 };
 
-class BinaryTree
+class BST
 {
 private:
-	Node * root;
+	Node *root;
+
 public:
-	BinaryTree()
+	BST()
 	{
 		root = NULL;
 	}
-	
-	void setRoot(Node *p) 
+	void setRoot(Node *p)
 	{
 		this->root = p;
-		return ;
+		return ; 
 	}
-
 	Node *getRoot()
 	{
 		return root;
 	}
 
-	Node *searchBSTree(Node *p, int key);
-	Node *insertBSTree(Node *p, int key);
+	Node *searchBST(Node *p, int key);
+	Node *insertBST(Node *p, int key);
 	Node *find_min(Node *p);
-	Node *deleteBSTree(Node *p, int key);
-	void drawBSTree(Node *p, int level);
+	Node *deleteBST(Node *p, int level);
+	void drawBST(Node *p, int level);
 };
-#endif // !_BINARYSEARCHTREE_H__
+
